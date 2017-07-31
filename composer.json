@@ -15,6 +15,9 @@
         "php": ">=5.6.4"
     },
     "autoload": {
+        "classmap": [
+            "src/database"
+        ],
         "psr-4": {
             "Mage2\\Feature\\": "src/"
         }

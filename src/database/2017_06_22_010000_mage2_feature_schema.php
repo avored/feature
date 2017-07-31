@@ -47,8 +47,7 @@ class Mage2FeatureSchema extends Migration
             'identifier' => 'is_featured',
             'field_type' => 'SELECT',
             'sort_order' => 10,
-            'is_system' => 1,
-            'use_as_variation' => '0',
+            'use_as' => 'SPECIFICATION',
         ]);
 
         AttributeDropdownOption::create([
