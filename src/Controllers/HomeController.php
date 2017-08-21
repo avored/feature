@@ -43,8 +43,7 @@ class HomeController extends Controller
         $helper = new FeatureProductHelper();
         $featureProducts = $helper->getFeaturedProducts();
 
-
-        return view('home.index')
+        return view('mage2-feature::home.index')
             ->with('featuredProducts', $featureProducts);
     }
 }

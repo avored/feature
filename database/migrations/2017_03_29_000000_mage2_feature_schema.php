@@ -42,23 +42,6 @@ class Mage2FeatureSchema extends Migration
     public function up()
     {
 
-        $featureAttribute = ProductAttribute::create([
-            'title' => 'Is Featured',
-            'identifier' => 'is_featured',
-            'field_type' => 'SELECT',
-            'sort_order' => 10,
-            'use_as' => 'SPECIFICATION',
-        ]);
-
-        AttributeDropdownOption::create([
-            'product_attribute_id' => $featureAttribute->id,
-            'display_text' => 'No'
-        ]);
-
-        AttributeDropdownOption::create([
-            'product_attribute_id' => $featureAttribute->id,
-            'display_text' => 'Yes'
-        ]);
 
 
     }
@@ -70,9 +53,9 @@ class Mage2FeatureSchema extends Migration
      */
     public function down()
     {
-        $attribute = ProductAttribute::where('identifier', '=', 'is_featured')->get()->first();
+        //$attribute = ProductAttribute::where('identifier', '=', 'is_featured')->get()->first();
 
-        $attribute->delete();
+        //$attribute->delete();
 
     }
 }

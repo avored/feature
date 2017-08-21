@@ -51,7 +51,7 @@ class Module extends BaseModule
     public function boot()
     {
         if (true === $this->getEnable()) {
-            $this->registerModule();
+            //$this->registerModule();
             $this->registerDatabasePath();
         }
 
@@ -74,8 +74,7 @@ class Module extends BaseModule
 
     public function registerDatabasePath()
     {
-        $dbPath = $this->getPath() . DIRECTORY_SEPARATOR . "database";
-        $this->loadMigrationsFrom($dbPath);
+        $this->loadMigrationsFrom(__DIR__ . "/../database/migrations");
     }
 
     /**
@@ -88,9 +87,7 @@ class Module extends BaseModule
      */
     protected function mapWebRoutes()
     {
-
-        require __DIR__ . '/routes/web.php';
-
+        $this->loadRoutesFrom(__DIR__ ."/../routes/web.php");
     }
 
     /**
@@ -102,23 +99,7 @@ class Module extends BaseModule
      */
     protected function registerViewPath()
     {
-        View::addLocation(__DIR__ . '/views');
-    }
-
-
-    public function registerModule()
-    {
-        ModuleFacade::put($this->getIdentifier(), $this, $type = "community");
-    }
-
-    public function getNameSpace()
-    {
-        return __NAMESPACE__;
-    }
-
-    public function getPath()
-    {
-        return __DIR__;
+        $this->loadViewsFrom(__DIR__ ."/../resources/views", "mage2-feature");
     }
 
 }
