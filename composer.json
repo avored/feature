@@ -16,7 +16,7 @@
     },
     "autoload": {
         "classmap": [
-            "src/database"
+            "database/migrations"
         ],
         "psr-4": {
             "Mage2\\Feature\\": "src/"
