@@ -4,9 +4,8 @@ namespace Mage2\Feature;
 
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\Support\BaseModule;
-use Mage2\Framework\Module\Facades\Module as ModuleFacade;
-use Illuminate\Support\Facades\File;
-use Symfony\Component\Yaml\Yaml;
+use Mage2\Feature\ViewComposers\BasicFieldViewComposer;
+
 
 class Module extends BaseModule
 {
@@ -53,6 +52,7 @@ class Module extends BaseModule
         if (true === $this->getEnable()) {
             //$this->registerModule();
             $this->registerDatabasePath();
+            $this->registerViewComposerData();
         }
 
     }
@@ -72,6 +72,10 @@ class Module extends BaseModule
         }
     }
 
+
+    public function registerViewComposerData() {
+        View::composer('mage2-product::product.card.basic', BasicFieldViewComposer::class);
+    }
     public function registerDatabasePath()
     {
         $this->loadMigrationsFrom(__DIR__ . "/../database/migrations");
