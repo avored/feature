@@ -25,12 +25,8 @@
 
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-
-use Mage2\Attribute\Models\ProductAttribute;
 use Mage2\Attribute\Models\AttributeDropdownOption;
-use Mage2\Attribute\Models\ProductAttributeGroup;
+use Mage2\Attribute\Models\Attribute;
 
 class Mage2FeatureSchema extends Migration
 {
@@ -42,7 +38,15 @@ class Mage2FeatureSchema extends Migration
     public function up()
     {
 
-
+        $attributeModel = Attribute::create([
+                                    'type' => 'PRODUCT',
+                                    'name' => 'Is Featured',
+                                    'identifier' => 'is_featured',
+                                    'field_type' => 'SELECT',
+                                    'use_as' => 'SPECIFICATION','sort_order' => 10
+                                    ]);
+        AttributeDropdownOption::create(['attribute_id' => $attributeModel->id,'display_text' => 'Yes']);
+        AttributeDropdownOption::create(['attribute_id' => $attributeModel->id,'display_text' => 'No']);
 
     }
 
@@ -53,9 +57,9 @@ class Mage2FeatureSchema extends Migration
      */
     public function down()
     {
-        //$attribute = ProductAttribute::where('identifier', '=', 'is_featured')->get()->first();
+        $attribute = Attribute::whereIdentifier('is_featured')->get()->first();
 
-        //$attribute->delete();
+        $attribute->delete();
 
     }
 }
