@@ -25,6 +25,7 @@
 
 namespace Mage2\Feature\ViewComposers;
 
+use Mage2\Attribute\Models\Attribute;
 use Mage2\Framework\Attribute\Facades\Attributes;
 use Illuminate\View\View;
 
@@ -40,24 +41,13 @@ class BasicFieldViewComposer
     public function compose(View $view)
     {
 
+        $featuredAttribute = Attribute::whereIdentifier('is_featured')->first();
+
         $attribute = Attributes::select('basic-product');
 
-
-        $attribute->name('is_featured')
-                    ->option(['' => 'Please Select', 1 => 'Yes',0 => 'No'])
-                    ->label('Is Featured');
-        /***, [ 'attributes' =>
-                                        ['class' => 'form-control',
-                                            'name' => 'is_featured'
-                                        ],
-                                        'label' => 'Is Featured',
-                                        'options' => ['' => 'Please Select', 1 => 'Yes',0 => 'No'],
-                                    ]);
-
-
-         */
-
-
+        $attribute->name($featuredAttribute->identifier)
+                    ->option($featuredAttribute->attributeDropdownOptions->pluck('display_text','id'))
+                    ->label($featuredAttribute->name);
 
     }
 

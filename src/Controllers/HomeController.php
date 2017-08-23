@@ -26,8 +26,11 @@
 
 namespace Mage2\Feature\Controllers;
 
-use Mage2\Feature\Helpers\FeatureProductHelper;
+use Illuminate\Support\Collection;
+use Mage2\Attribute\Models\Attribute;
+use Mage2\Attribute\Models\ProductAttributeValue;
 use Mage2\Framework\System\Controllers\Controller;
+use Mage2\Product\Models\Product;
 
 class HomeController extends Controller
 {
@@ -39,9 +42,17 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $featureProducts = Collection::make([]);
+        $featuredAttribute = Attribute::whereIdentifier('is_featured')->first();
 
-        $helper = new FeatureProductHelper();
-        $featureProducts = $helper->getFeaturedProducts();
+        $productIds = ProductAttributeValue::whereAttributeId($featuredAttribute->id)->paginate(9)->pluck('product_id');
+
+        if ($productIds->count() > 0) {
+            foreach ($productIds as $productId) {
+                $product = Product::find($productId);
+                $featureProducts->push($product);
+            }
+        }
 
         return view('mage2-feature::home.index')
             ->with('featuredProducts', $featureProducts);

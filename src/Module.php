@@ -2,10 +2,12 @@
 
 namespace Mage2\Feature;
 
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\View;
+use Mage2\Feature\Listeners\FeatureProductSavingListener;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Feature\ViewComposers\BasicFieldViewComposer;
-
+use Mage2\Product\Events\ProductSavedEvent;
 
 class Module extends BaseModule
 {
@@ -53,6 +55,7 @@ class Module extends BaseModule
             //$this->registerModule();
             $this->registerDatabasePath();
             $this->registerViewComposerData();
+            $this->registerModuleListener();
         }
 
     }
@@ -94,6 +97,17 @@ class Module extends BaseModule
         $this->loadRoutesFrom(__DIR__ ."/../routes/web.php");
     }
 
+    /**
+     *
+     * Register Event Listeners
+     *
+     * @return void
+     */
+
+    public function registerModuleListener()
+    {
+        Event::listen(ProductSavedEvent::class, FeatureProductSavingListener::class);
+    }
     /**
      * add path to view finder.
      *
