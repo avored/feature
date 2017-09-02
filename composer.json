@@ -18,5 +18,12 @@
         "psr-4": {
             "Mage2\\Feature\\": "src/"
         }
+    },
+    "extra": {
+        "laravel" : {
+            "providers": [
+                "Mage2\\Feature\\Module"
+            ]
+        }
     }
 }
