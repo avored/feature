@@ -1,6 +1,6 @@
 {
     "name": "mage2/feature",
-    "description": "Mage2 Laravel 5 E commerce Feature Module",
+    "description": "Mage2 Laravel E commerce - Feature Product Module",
     "keywords": ["framework", "feature-product" ,"cart","laravel","e commerce","laravel5","shop","shopping-cart","e-commerce","shopping cart","e commerce"],
     "license": "GPL-3.0",
     "authors": [
@@ -10,10 +10,7 @@
         }
     ],
     "minimum-stability": "dev",
-     "type": "mage2-module",
-    "require": {
-        "php": ">=7.0.0"
-    },
+    "type": "mage2-module",
     "autoload": {
         "classmap": [
             "database/migrations"
