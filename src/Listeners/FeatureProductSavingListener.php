@@ -30,7 +30,7 @@ class FeatureProductSavingListener
                                             'value' => $request->get('is_featured')
                                         ]);
             } else {
-                $attrValueModel->update(['value' => $requeste->get('is_featured')]);
+                $attrValueModel->update(['value' => $request->get('is_featured')]);
             }
 
         }
