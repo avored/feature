@@ -1,48 +1,12 @@
 <?php
+namespace AvoRed\Featured;
 
-namespace Mage2\Feature;
+use AvoRed\Featured\Widget\Featured\Widget;
+use Illuminate\Support\ServiceProvider;
+use AvoRed\Framework\Widget\Facade as WidgetFacade;
 
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\View;
-use Mage2\Feature\Listeners\FeatureProductSavingListener;
-use Mage2\Framework\Support\BaseModule;
-use Mage2\Feature\ViewComposers\BasicFieldViewComposer;
-use Mage2\Product\Events\ProductSavedEvent;
-
-class Module extends BaseModule
+class Module extends ServiceProvider
 {
-
-    /**
-     *
-     * Module Name Variable
-     * @var string $name
-     *
-     */
-    protected $name = NULL;
-
-    /**
-     *
-     * Module identifier  Variable
-     * @var string $identifier
-     *
-     */
-    protected $identifier = NULL;
-    /**
-     *
-     * Module Description Variable
-     * @var string $description
-     *
-     */
-    protected $description = NULL;
-
-
-    /**
-     *
-     * Module Enable Variable
-     * @var bool $enable
-     *
-     */
-    protected $enable = NULL;
 
     /**
      * Bootstrap any application services.
@@ -51,12 +15,8 @@ class Module extends BaseModule
      */
     public function boot()
     {
-        if (true === $this->getEnable()) {
-            //$this->registerModule();
-            $this->registerDatabasePath();
-            $this->registerViewComposerData();
-            $this->registerModuleListener();
-        }
+        $this->registerResources();
+        $this->registerWidget();
 
     }
 
@@ -67,57 +27,32 @@ class Module extends BaseModule
      */
     public function register()
     {
-        $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'module.yaml');
 
-        if (true === $this->getEnable()) {
-            $this->mapWebRoutes();
-            $this->registerViewPath();
-        }
-    }
-
-
-    public function registerViewComposerData() {
-        View::composer('mage2-product::product.card.basic', BasicFieldViewComposer::class);
-    }
-    public function registerDatabasePath()
-    {
-        $this->loadMigrationsFrom(__DIR__ . "/../database/migrations");
     }
 
     /**
-     * Define the "web" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
-     *
+     * Registering AvoRed featured Resource
+     * e.g. Route, View, Database  & Translation Path
      *
      * @return void
      */
-    protected function mapWebRoutes()
+    protected function registerResources()
     {
-        $this->loadRoutesFrom(__DIR__ ."/../routes/web.php");
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'avored-featured');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 
     /**
-     *
-     * Register Event Listeners
-     *
-     * @return void
-     */
-
-    public function registerModuleListener()
-    {
-        Event::listen(ProductSavedEvent::class, FeatureProductSavingListener::class);
-    }
-    /**
-     * add path to view finder.
-     *
-     * @param \Illuminate\Routing\Router $router
+     * Register the Widget.
      *
      * @return void
      */
-    protected function registerViewPath()
+    protected function registerWidget()
     {
-        $this->loadViewsFrom(__DIR__ ."/../resources/views", "mage2-feature");
-    }
 
+        $featuredProduct = new Widget();
+        WidgetFacade::make($featuredProduct->identifier(), $featuredProduct);
+
+
+    }
 }

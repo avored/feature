@@ -1,0 +1,56 @@
+<?php
+
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+use AvoRed\Framework\Models\Database\Property;
+use AvoRed\Framework\Models\Database\PropertyDropdownOption;
+
+
+class AvoredFeaturedSchema extends Migration
+{
+
+    /**
+     *
+     * Install the AvoRed Featured Module Schema.
+     *
+     * @return void
+     */
+    public function up()
+    {
+
+        $property = Property::create([
+                            'name'          => 'Is Featured',
+                            'identifier'    => 'avored-is-featured',
+                            'data_type'     => 'INTEGER',
+                            'field_type'    => 'SELECT',
+                            'sort_order'    => 100
+                        ]);
+
+        PropertyDropdownOption::create([
+            'property_id'   => $property->id,
+            'display_text'  => 'Yes'
+        ]);
+
+        PropertyDropdownOption::create([
+            'property_id'   => $property->id,
+            'display_text'  => 'No'
+        ]);
+
+    }
+
+    /**
+     * Uninstall the AvoRed Address Module Schema.
+     *
+     * @return void
+     */
+    public function down()
+    {
+
+
+
+    }
+
+}
