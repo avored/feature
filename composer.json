@@ -9,8 +9,14 @@
       "email": "ind.purvesh@gmail.com"
     }
   ],
-  "minimum-stability": "dev",
   "type": "mage2-module",
+  "require": {
+    "php": ">=7.1.3",
+    "avored/module-installer": "dev-master",
+    "avored/framework": "dev-master",
+    "avored/ecommerce": "dev-master"
+  },
+
   "autoload": {
     "classmap": [
       "database/migrations"
