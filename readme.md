@@ -2,6 +2,6 @@
 
 ### Installation
 
-    composer require avored/featured --stability=dev
+    composer require avored/featured 
     
     php artisan migrate
