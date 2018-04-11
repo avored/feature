@@ -24,12 +24,5 @@
     "psr-4": {
       "AvoRed\\Featured\\": "src/"
     }
-  },
-  "extra": {
-    "laravel" : {
-      "providers": [
-        "AvoRed\\Featured\\Module"
-      ]
-    }
   }
 }
