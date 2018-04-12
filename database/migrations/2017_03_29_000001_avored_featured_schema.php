@@ -26,6 +26,7 @@ class AvoredFeaturedSchema extends Migration
                             'identifier'    => 'avored-is-featured',
                             'data_type'     => 'INTEGER',
                             'field_type'    => 'SELECT',
+                            'use_for_all_products'  => 1,
                             'sort_order'    => 100
                         ]);
 
