@@ -49,10 +49,7 @@ class Module extends ServiceProvider
      */
     protected function registerWidget()
     {
-
         $featuredProduct = new Widget();
         WidgetFacade::make($featuredProduct->identifier(), $featuredProduct);
-
-
     }
 }
