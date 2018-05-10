@@ -3,7 +3,7 @@
 namespace AvoRed\Featured\Widget\Featured;
 
 use AvoRed\Framework\Models\Database\ProductPropertyIntegerValue;
-use AvoRed\Framework\Repository\Product;
+use AvoRed\Framework\Models\Database\Property;
 use AvoRed\Framework\Widget\Contracts\Widget as WidgetContract;
 use Illuminate\Support\Collection;
 
@@ -99,9 +99,8 @@ class Widget implements WidgetContract
 
     public function render() {
 
-        $productRepository = new Product();
-
-        $featuredProperty = $productRepository->propertyModel()->whereIdentifier('avored-is-featured')->first();
+        
+        $featuredProperty = Property::whereIdentifier('avored-is-featured')->first();
 
         $featuredProductIds = ProductPropertyIntegerValue::wherePropertyId($featuredProperty->id)->paginate(4)->pluck('product_id');
 
